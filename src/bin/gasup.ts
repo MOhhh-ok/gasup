@@ -13,6 +13,7 @@ program
 
 function main() {
   if (program.opts().init) {
+    console.log('init gasup');
     init();
   }
 
