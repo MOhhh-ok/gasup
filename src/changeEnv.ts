@@ -1,9 +1,9 @@
 import dotenv from 'dotenv';
 import fs from 'fs-extra';
-import { Env, getConfig } from './Config.js';
+import { Env, getConfig } from './config.js';
 
-export async function changeEnv(env: Env = 'dev') {
-  const config = await getConfig();
+export function changeEnv(env: Env = 'dev') {
+  const config = getConfig();
   const envPath = config.envPaths[env];
   if (!envPath) {
     throw new Error(`envPath not found on ${envPath}`);
@@ -28,5 +28,4 @@ export async function changeEnv(env: Env = 'dev') {
   };
 
   fs.writeFileSync(claspJsonPath, JSON.stringify(data, null, 2));
-  console.log(`env changed to ${env}`);
 }

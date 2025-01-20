@@ -24,15 +24,18 @@
   "dependencies": {
     "commander": "^13.0.0",
     "dotenv": "^16.4.7",
+    "envfile": "^7.1.0",
     "esbuild": "^0.24.2",
     "esbuild-gas-plugin": "^0.8.0",
     "fs-extra": "^11.3.0",
     "path": "^0.12.7",
+    "remeda": "^2.19.2",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.2"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
-    "@types/node": "^22.10.7"
+    "@types/node": "^22.10.7",
+    "vitest": "^3.0.2"
   }
 }

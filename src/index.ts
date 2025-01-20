@@ -1,3 +1,3 @@
 export * from './bundle.js';
 export * from './changeEnv.js';
-export * from './Config.js';
+export * from './config.js';
