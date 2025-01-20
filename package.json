@@ -1,0 +1,38 @@
+{
+  "name": "gasup",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "tsc"
+  },
+  "bin": {
+    "gasup": "./dist/bin/gasup.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "gas",
+    "gasup",
+    "cli",
+    "google apps script"
+  ],
+  "dependencies": {
+    "commander": "^13.0.0",
+    "dotenv": "^16.4.7",
+    "esbuild": "^0.24.2",
+    "esbuild-gas-plugin": "^0.8.0",
+    "fs-extra": "^11.3.0",
+    "path": "^0.12.7",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.10.7"
+  }
+}
