@@ -1,24 +1,28 @@
 import fs from 'fs-extra';
 import { getConfig } from './config.js';
 import { getAppsScript } from './appsScript.js';
+import { getClaspJson } from './claspJson.js';
 
 export function initEnvFiles() {
   const config = getConfig();
-  const appsScript = getAppsScript();
-  const scriptId = appsScript.scriptId;
+  const claspJson = getClaspJson();
+  const scriptId = claspJson.scriptId;
   const envPath = config.envPaths['dev'];
   addToEnvFile(envPath, {
-    SCRIPT_ID: scriptId,
+    GASUP_SCRIPT_ID: scriptId,
   });
 }
 
 export function addToEnvFile(envPath: string, _items: Record<string, string>) {
-  const envString = fs.readFileSync(envPath, 'utf-8');
-  const newEnvString = addToEnvString(envString, _items);
+  let envString = '';
+  try {
+    envString = fs.readFileSync(envPath, 'utf-8');
+  } catch (e) {}
+  const newEnvString = addToEnvString(envString.trim(), _items);
   fs.writeFileSync(envPath, newEnvString);
 }
 
-// 環境変数を追加する。安全のため、既存の環境変数は上書きしない
+// 環境変数を変更する
 export function addToEnvString(
   envString: string,
   _items: Record<string, string>
@@ -31,15 +35,20 @@ export function addToEnvString(
     } else {
       const { key, value } = parseLine(line);
       if (key) {
-        newLines.push(`${key}=${value}`);
+        if (items[key]) {
+          newLines.push(`${key}=${items[key]}`);
+          delete items[key];
+        } else {
+          newLines.push(`${key}=${value}`);
+        }
       } else {
         newLines.push('');
       }
-      delete items[key];
     }
   }
   newLines.push('');
   for (const [key, value] of Object.entries(items)) {
+    if (!key) continue;
     newLines.push(`${key}=${value}`);
   }
   return newLines.join('\n');

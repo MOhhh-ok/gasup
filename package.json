@@ -28,6 +28,7 @@
     "esbuild": "^0.24.2",
     "esbuild-gas-plugin": "^0.8.0",
     "fs-extra": "^11.3.0",
+    "inquirer": "^12.3.2",
     "path": "^0.12.7",
     "remeda": "^2.19.2",
     "ts-node": "^10.9.2",

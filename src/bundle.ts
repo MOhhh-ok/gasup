@@ -4,9 +4,9 @@ import { GasPlugin } from 'esbuild-gas-plugin';
 import fs from 'fs-extra';
 import path from 'path';
 
-export function bundle() {
+export async function bundle() {
   const config = getConfig();
-  esbuild.buildSync({
+  await esbuild.build({
     entryPoints: config.bundleEntries,
     bundle: true,
     outfile: config.bundleOutfile,

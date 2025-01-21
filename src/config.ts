@@ -23,7 +23,7 @@ export const defaultConfig: Config = {
   },
   claspJsonPath: '.clasp.json',
   appsScriptJsonPath: 'appsscript.json',
-  bundleEntries: [path.join('src', 'index.ts')],
+  bundleEntries: [path.join('main', 'src', 'index.ts')],
   bundleOutfile: path.join('dist', 'bundle.js'),
   srcDir: 'src',
   distDir: 'dist',
@@ -47,7 +47,6 @@ export function getConfig(): Config {
       envPaths: { ...defaultConfig.envPaths, ...(data.envPaths ?? {}) },
     };
   } catch (e) {
-    console.error(e);
     return defaultConfig;
   }
 }

@@ -3,6 +3,7 @@ import { build } from '../build.js';
 import { bundle } from '../bundle.js';
 import { changeEnv } from '../changeEnv.js';
 import { init } from '../init.js';
+import inquirer from 'inquirer';
 
 program
   .option('--init', 'init')
@@ -11,10 +12,21 @@ program
   .option('--build', 'build')
   .parse();
 
-function main() {
+async function main() {
   if (program.opts().init) {
-    console.log('init gasup');
-    init();
+    inquirer
+      .prompt({
+        type: 'confirm',
+        name: 'do',
+        message: 'This action will overwrite some files. Are you sure?',
+      })
+      .then((res) => {
+        if (!res.do) return;
+        console.log('init gasup');
+        init();
+        console.log('init done');
+      });
+    return;
   }
 
   if (program.opts().env) {
@@ -29,14 +41,14 @@ function main() {
 
   if (program.opts().bundle) {
     console.log('bundle with esbuild');
-    bundle();
+    await bundle();
   }
 
   console.log('gasup done');
 }
 
 try {
-  main();
+  await main();
 } catch (err: any) {
   console.error(err.message);
   process.exit(1);

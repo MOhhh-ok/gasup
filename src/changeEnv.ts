@@ -17,9 +17,9 @@ export function changeEnv(env: Env = 'dev') {
   }
 
   dotenv.config({ path: envPath });
-  const scriptId = process.env.SCRIPT_ID;
+  const scriptId = process.env.GASUP_SCRIPT_ID;
   if (!scriptId) {
-    throw new Error(`SCRIPT_ID not found on ${envPath}`);
+    throw new Error(`GASUP_SCRIPT_ID not found on ${envPath}`);
   }
 
   const data = {
