@@ -1,7 +1,6 @@
 import fs from 'fs-extra';
-import { getConfig } from './config.js';
-import { getAppsScript } from './appsScript.js';
 import { getClaspJson } from './claspJson.js';
+import { getConfig } from './config.js';
 
 export function initEnvFiles() {
   const config = getConfig();

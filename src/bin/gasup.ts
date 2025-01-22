@@ -4,12 +4,16 @@ import { bundle } from '../bundle.js';
 import { changeEnv } from '../changeEnv.js';
 import { init } from '../init.js';
 import inquirer from 'inquirer';
+import { execSync } from 'child_process';
+import { deploy } from '../deploy.js';
 
 program
   .option('--init', 'init')
   .option('--env <env>', 'change env')
   .option('--bundle', 'bundle')
   .option('--build', 'build')
+  .option('--push', 'push')
+  .option('--deploy', 'deploy')
   .parse();
 
 async function main() {
@@ -42,6 +46,16 @@ async function main() {
   if (program.opts().bundle) {
     console.log('bundle with esbuild');
     await bundle();
+  }
+
+  if (program.opts().push) {
+    console.log('push');
+    execSync('clasp push', { stdio: 'inherit' });
+  }
+
+  if (program.opts().deploy) {
+    console.log(`deploy`);
+    deploy();
   }
 
   console.log('gasup done');
