@@ -4,7 +4,12 @@ export function deploy() {
   const currentDeployments = getCurrentDeployments();
   const latestDeployment = currentDeployments[0];
   if (latestDeployment) {
-    console.log('deploy latest deployment: ' + latestDeployment.id);
+    console.log(
+      'deploy to latest: ' +
+        latestDeployment.id +
+        ' ' +
+        latestDeployment.version
+    );
     execSync('clasp deploy -i ' + latestDeployment.id);
   } else {
     console.log('deploy new version');
