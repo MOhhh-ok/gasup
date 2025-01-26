@@ -56,6 +56,20 @@ Deploy to the latest deployment. If no previous deployments exist, a new deploym
 gasup --deploy
 ```
 
+appsscript.json affects deployment. Be sure to check your appsscript.json.
+
+If you want to deploy webapp, appsscript is like below.
+
+```json
+{
+  ...
+  "webapp": {
+    "executeAs": "USER_DEPLOYING",
+    "access": "ANYONE_ANONYMOUS"
+  }
+}
+```
+
 ### Change Environment
 
 If you need to switch between different environments (e.g., development, staging, production), you can use the --env flag to modify the appsscript.json file accordingly.
