@@ -6,8 +6,6 @@ import tsnode from 'ts-node';
 
 const configFileName = 'gasup.config.ts';
 
-export const config = loadConfigWithDefault();
-
 export const defaultConfig: Config = {
   envPaths: {
     dev: '.env',
@@ -21,6 +19,8 @@ export const defaultConfig: Config = {
   srcDir: 'src',
   distDir: 'dist',
 };
+
+export const config = loadConfigWithDefault();
 
 function loadConfigWithDefault() {
   const configPath = path.join(process.cwd(), configFileName);
