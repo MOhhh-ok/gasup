@@ -17,7 +17,7 @@ To get started with gasup, you need clasp first.
 Then you can install gasup like below.
 
 ```
-npm i -g gasup
+npm i -D gasup
 ```
 
 ## Usage
