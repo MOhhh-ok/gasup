@@ -1,19 +1,12 @@
 import { readFileSync } from 'fs';
 import fs from 'fs-extra';
 import path from 'path';
+import { Config } from './types.js';
+import tsnode from 'ts-node';
 
-export type Env = 'dev' | 'stag' | 'prod';
-const configPath = 'gasup.json';
+const configFileName = 'gasup.config.ts';
 
-export interface Config {
-  envPaths?: Record<Env, string>;
-  claspJsonPath?: string;
-  appsScriptJsonPath?: string;
-  bundleEntries?: string[];
-  bundleOutfile?: string;
-  srcDir?: string;
-  distDir?: string;
-}
+export const config = loadConfigWithDefault();
 
 export const defaultConfig: Config = {
   envPaths: {
@@ -29,24 +22,29 @@ export const defaultConfig: Config = {
   distDir: 'dist',
 };
 
-export function initConfig() {
-  const config = getConfig();
-  fs.writeFileSync(
-    path.join(process.cwd(), configPath),
-    JSON.stringify(config, null, 2)
-  );
+function loadConfigWithDefault() {
+  const configPath = path.join(process.cwd(), configFileName);
+  const config = loadConfig(configPath);
+  return {
+    ...defaultConfig,
+    ...config,
+    envPaths: { ...defaultConfig.envPaths, ...(config.envPaths ?? {}) },
+  };
 }
 
-export function getConfig(): Config {
+function loadConfig(configPath: string): Config {
   try {
-    const res = readFileSync(path.join(process.cwd(), configPath));
-    const data = JSON.parse(res.toString());
-    return {
-      ...defaultConfig,
-      ...data,
-      envPaths: { ...defaultConfig.envPaths, ...(data.envPaths ?? {}) },
-    };
-  } catch (e) {
-    return defaultConfig;
+    const configString = fs.readFileSync(configPath, 'utf-8');
+    const compiledPath = path.join(__dirname, '__config_compiled.js');
+
+    const compiledCode = tsnode
+      .create()
+      .compile(configString, 'config_dummy.ts');
+    fs.writeFileSync(compiledPath, compiledCode);
+    const data = require(compiledPath);
+    fs.unlinkSync(compiledPath);
+    return data.default;
+  } catch (err: any) {
+    return {};
   }
 }

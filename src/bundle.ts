@@ -1,11 +1,10 @@
-import { getConfig } from './config.js';
 import esbuild from 'esbuild';
 import { GasPlugin } from 'esbuild-gas-plugin';
 import fs from 'fs-extra';
 import path from 'path';
+import { config } from './config.js';
 
 export async function bundle() {
-  const config = getConfig();
   await esbuild.build({
     entryPoints: config.bundleEntries,
     bundle: true,

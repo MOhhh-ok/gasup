@@ -1,9 +1,9 @@
-import dotenv from 'dotenv';
 import fs from 'fs-extra';
-import { Env, getConfig } from './config.js';
+import { config } from '../config.js';
+import { getEnvData } from './envFile.js';
+import { Env } from '../types.js';
 
 export function changeEnv(env: Env = 'dev') {
-  const config = getConfig();
   const envPath = config.envPaths[env];
   if (!envPath) {
     throw new Error(`envPath not found on ${envPath}`);
@@ -16,8 +16,8 @@ export function changeEnv(env: Env = 'dev') {
     }
   }
 
-  dotenv.config({ path: envPath });
-  const scriptId = process.env.GASUP_SCRIPT_ID;
+  const envData = getEnvData(envPath);
+  const scriptId = envData.GASUP_SCRIPT_ID;
   if (!scriptId) {
     throw new Error(`GASUP_SCRIPT_ID not found on ${envPath}`);
   }
@@ -25,6 +25,7 @@ export function changeEnv(env: Env = 'dev') {
   const data = {
     scriptId,
     rootDir: config.distDir,
+    parentId: envData.GASUP_PARENT_ID,
   };
 
   fs.writeFileSync(claspJsonPath, JSON.stringify(data, null, 2));

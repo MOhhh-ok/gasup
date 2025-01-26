@@ -1,26 +1,3 @@
-import fs from 'fs-extra';
-import { getClaspJson } from './claspJson.js';
-import { getConfig } from './config.js';
-
-export function initEnvFiles() {
-  const config = getConfig();
-  const claspJson = getClaspJson();
-  const scriptId = claspJson.scriptId;
-  const envPath = config.envPaths['dev'];
-  addToEnvFile(envPath, {
-    GASUP_SCRIPT_ID: scriptId,
-  });
-}
-
-export function addToEnvFile(envPath: string, _items: Record<string, string>) {
-  let envString = '';
-  try {
-    envString = fs.readFileSync(envPath, 'utf-8');
-  } catch (e) {}
-  const newEnvString = addToEnvString(envString.trim(), _items);
-  fs.writeFileSync(envPath, newEnvString);
-}
-
 // 環境変数を変更する
 export function addToEnvString(
   envString: string,

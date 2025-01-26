@@ -1,7 +1,7 @@
 import { program } from 'commander';
 import { build } from '../build.js';
 import { bundle } from '../bundle.js';
-import { changeEnv } from '../changeEnv.js';
+import { changeEnv } from '../envFile/changeEnv.js';
 import { init } from '../init.js';
 import inquirer from 'inquirer';
 import { execSync } from 'child_process';

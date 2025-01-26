@@ -1,4 +1,4 @@
-import { addToEnvString } from './envFile.js';
+import { addToEnvString } from './addToEnvString.js';
 import { describe, it, expect } from 'vitest';
 
 describe('addToEnvString', () => {
