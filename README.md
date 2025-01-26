@@ -93,8 +93,9 @@ gasup --env dev --build --push --deploy
 
 The config file will below.
 
-```ts:gasup.config.ts
-import {Config} from 'gasup';
+```ts
+// gasup.config.ts
+import { Config } from 'gasup';
 
 const config:Config = {
   srcDir: './src';
