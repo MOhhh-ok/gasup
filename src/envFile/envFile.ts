@@ -1,19 +1,7 @@
 import dotenv from 'dotenv';
 import fs from 'fs-extra';
-import { config } from '../config.js';
 import { EnvObject } from '../types.js';
-import { getClaspJson } from './../claspJson.js';
 import { addToEnvString } from './addToEnvString.js';
-
-export function initEnvFiles() {
-  const claspJson = getClaspJson();
-  const envPath = config.envPaths['dev'];
-  console.log({ claspJson });
-  addToEnvFile(envPath, {
-    GASUP_SCRIPT_ID: claspJson.scriptId,
-    GASUP_PARENT_ID: claspJson.parentId?.join(','),
-  });
-}
 
 export function getEnvData(envPath: string): EnvObject {
   try {

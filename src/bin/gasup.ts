@@ -1,15 +1,12 @@
+import { execSync } from 'child_process';
 import { program } from 'commander';
 import { build } from '../build.js';
 import { bundle } from '../bundle.js';
-import { changeEnv } from '../envFile/changeEnv.js';
-import { init } from '../init.js';
-import inquirer from 'inquirer';
-import { execSync } from 'child_process';
 import { deploy } from '../deploy.js';
+import { changeEnv } from '../envFile/changeEnv.js';
 
 program
-  .option('--init', 'init')
-  .option('--env <env>', 'change env')
+  .option('--env <envpath>', 'apply env to clasp')
   .option('--bundle', 'bundle')
   .option('--build', 'build')
   .option('--push', 'push')
@@ -17,43 +14,31 @@ program
   .parse();
 
 async function main() {
-  if (program.opts().init) {
-    inquirer
-      .prompt({
-        type: 'confirm',
-        name: 'do',
-        message: 'This action will overwrite some files. Are you sure?',
-      })
-      .then((res) => {
-        if (!res.do) return;
-        console.log('init gasup');
-        init();
-        console.log('init done');
-      });
-    return;
+  const opts = program.opts();
+  if (opts.env?.startsWith('--')) {
+    throw new Error('env option is required');
+  }
+  if (opts.env) {
+    console.log(`apply ${opts.env} to clasp`);
+    changeEnv(opts.env);
   }
 
-  if (program.opts().env) {
-    changeEnv(program.opts().env);
-    console.log(`env changed to ${program.opts().env}`);
-  }
-
-  if (program.opts().build) {
+  if (opts.build) {
     console.log('build with tsc');
     build();
   }
 
-  if (program.opts().bundle) {
+  if (opts.bundle) {
     console.log('bundle with esbuild');
     await bundle();
   }
 
-  if (program.opts().push) {
+  if (opts.push) {
     console.log('push');
     execSync('clasp push', { stdio: 'inherit' });
   }
 
-  if (program.opts().deploy) {
+  if (opts.deploy) {
     console.log(`deploy`);
     deploy();
   }
@@ -61,9 +46,7 @@ async function main() {
   console.log('gasup done');
 }
 
-try {
-  await main();
-} catch (err: any) {
+main().catch((err: any) => {
   console.error(err.message);
   process.exit(1);
-}
+});

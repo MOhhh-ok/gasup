@@ -34,11 +34,13 @@ This command compiles your code with tsc.
 
 ### Bundle
 
-Bundle with esbuild into one file. This allows you to use libraries that are not natively available in Google Apps Script.
+Bundle with esbuild into one file.
 
 ```
 gasup --bundle
 ```
+
+ This allows you to use libraries that are not natively available in Google Apps Script.
 
 ### Push
 
@@ -62,7 +64,6 @@ If you want to deploy webapp, appsscript is like below.
 
 ```json
 {
-  ...
   "webapp": {
     "executeAs": "USER_DEPLOYING",
     "access": "ANYONE_ANONYMOUS"
@@ -75,18 +76,8 @@ If you want to deploy webapp, appsscript is like below.
 If you need to switch between different environments (e.g., development, staging, production), you can use the --env flag to modify the appsscript.json file accordingly.
 
 ```
-gasup --env <target>
+gasup --env <envpath>
 ```
-
-Target options:
-
-- dev : Development environment
-- stag : Staging environment
-- prod : Production environment
-
-Default environment files:
-
-.env, .env.staging, .env.production
 
 Environment file details:
 
@@ -100,7 +91,7 @@ GASUP_PARENT_ID=yyy,zzz
 Chan command is available like below.
 
 ```
-gasup --env dev --build --push --deploy
+gasup --env .env.production --bundle --push --deploy
 ```
 
 ### Config
@@ -120,8 +111,6 @@ export default config;
 
 ```ts
 export interface Config {
-  envPaths?: Record<Env, string>;
-  claspJsonPath?: string;
   appsScriptJsonPath?: string;
   bundleEntries?: string[];
   bundleOutfile?: string;

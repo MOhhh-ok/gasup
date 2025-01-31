@@ -1,20 +1,14 @@
-import { readFileSync } from 'fs';
 import fs from 'fs-extra';
 import path from 'path';
-import { Config } from './types.js';
 import tsnode from 'ts-node';
+import { Config } from './types.js';
 
 const configFileName = 'gasup.config.ts';
 
 export const defaultConfig: Config = {
-  envPaths: {
-    dev: '.env',
-    stag: '.env.staging',
-    prod: '.env.production',
-  },
   claspJsonPath: '.clasp.json',
   appsScriptJsonPath: 'appsscript.json',
-  bundleEntries: [path.join('main', 'src', 'index.ts')],
+  bundleEntries: [path.join('src', 'index.ts')],
   bundleOutfile: path.join('dist', 'bundle.js'),
   srcDir: 'src',
   distDir: 'dist',
@@ -28,7 +22,6 @@ function loadConfigWithDefault() {
   return {
     ...defaultConfig,
     ...config,
-    envPaths: { ...defaultConfig.envPaths, ...(config.envPaths ?? {}) },
   };
 }
 

@@ -1,13 +1,9 @@
 import fs from 'fs-extra';
-import { config } from './config.js';
+import { ClaspJson } from './types.js';
 
-export interface ClaspJson {
-  scriptId?: string;
-  rootDir?: string;
-  parentId?: string[];
-}
-
-export function getClaspJson(): ClaspJson {
-  const json = fs.readFileSync(config.claspJsonPath, 'utf-8');
-  return JSON.parse(json ?? '{}');
+export function updateClaspJson(claspJsonPath: string, data: ClaspJson) {
+  const json = fs.readFileSync(claspJsonPath, 'utf-8');
+  const existingData = JSON.parse(json ?? '{}');
+  const newData = { ...existingData, ...data };
+  fs.writeFileSync(claspJsonPath, JSON.stringify(newData, null, 2));
 }
