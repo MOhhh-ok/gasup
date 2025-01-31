@@ -1,9 +1,9 @@
 import fs from 'fs-extra';
 import { updateClaspJson } from '../claspJson.js';
-import { config } from '../config.js';
+import { Config } from '../types.js';
 import { getEnvData } from './envFile.js';
 
-export function changeEnv(envPath: string) {
+export function changeEnv(envPath: string, config: Config) {
   if (!envPath) {
     throw new Error(`envPath not found on ${envPath}`);
   }

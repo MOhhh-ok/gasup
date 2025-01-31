@@ -14,30 +14,31 @@ export const defaultConfig: Config = {
   distDir: 'dist',
 };
 
-export const config = loadConfigWithDefault();
+// export const config = loadConfigWithDefault();
 
-function loadConfigWithDefault() {
+export async function loadConfigWithDefault() {
   const configPath = path.join(process.cwd(), configFileName);
-  const config = loadConfig(configPath);
+  const config = await loadConfig(configPath);
   return {
     ...defaultConfig,
     ...config,
   };
 }
 
-function loadConfig(configPath: string): Config {
+async function loadConfig(configPath: string): Promise<Config> {
   try {
     const configString = fs.readFileSync(configPath, 'utf-8');
-    const compiledPath = path.join(__dirname, '__config_compiled.js');
+    const compiledPath = path.join(process.cwd(), '__config_compiled.js');
 
     const compiledCode = tsnode
       .create()
       .compile(configString, 'config_dummy.ts');
     fs.writeFileSync(compiledPath, compiledCode);
-    const data = require(compiledPath);
+    const data = await import(compiledPath);
     fs.unlinkSync(compiledPath);
     return data.default;
   } catch (err: any) {
+    console.error(err);
     return {};
   }
 }
