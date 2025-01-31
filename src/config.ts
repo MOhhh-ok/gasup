@@ -38,7 +38,6 @@ async function loadConfig(configPath: string): Promise<Config> {
     fs.unlinkSync(compiledPath);
     return data.default;
   } catch (err: any) {
-    console.error(err);
     return {};
   }
 }
