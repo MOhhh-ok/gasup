@@ -15,4 +15,13 @@ export async function bundle(config: Config) {
   });
 
   fs.copyFileSync(appsScriptJsonPath, path.join(distDir, 'appsscript.json'));
+
+  // HTMLファイルをdistディレクトリにコピー
+  for (const bundleEntry of bundleEntries) {
+    const entryDir = path.dirname(bundleEntry);
+    const htmlFiles = fs.readdirSync(entryDir).filter(file => file.endsWith('.html'));
+    for (const htmlFile of htmlFiles) {
+      fs.copyFileSync(path.join(entryDir, htmlFile), path.join(distDir, htmlFile));
+    }
+  }
 }
