@@ -27,17 +27,23 @@
     "google apps script"
   ],
   "dependencies": {
-    "commander": "^13.0.0",
-    "dotenv": "^16.4.7",
-    "esbuild": ">=0.25.0",
-    "esbuild-gas-plugin": "^0.8.0",
+    "commander": "^13.1.0",
+    "dotenv": "^16.5.0",
+    "esbuild": "^0.25.5",
+    "esbuild-gas-plugin": "^0.9.0",
     "fs-extra": "^11.3.0",
-    "remeda": "^2.19.2",
+    "remeda": "^2.22.6",
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
-    "@types/node": "^22.10.7",
-    "vitest": "^3.0.5"
+    "@types/node": "^22.15.30",
+    "vitest": "^3.2.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "tsx>esbuild": "0.25.5",
+      "esbuild-gas-plugin>esbuild": "0.25.5"
+    }
   }
 }
