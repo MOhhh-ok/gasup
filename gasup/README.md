@@ -11,13 +11,7 @@ A simple CLI tool for bundling Google Apps Script projects with esbuild and the 
 
 ## Installation
 
-First, install clasp (Google Apps Script CLI):
-
-```bash
-npm install -g @google/clasp
-```
-
-Then install gasup as a dev dependency:
+Install gasup as a dev dependency:
 
 ```bash
 npm install -D gasup
