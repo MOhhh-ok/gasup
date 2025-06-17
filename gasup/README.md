@@ -5,6 +5,7 @@ A simple CLI tool for bundling Google Apps Script projects with esbuild and the 
 ## Features
 
 - **Simple bundling**: Bundle your TypeScript/JavaScript code into a single file optimized for Google Apps Script
+- **Watch mode**: Automatically rebuild when files change during development
 - **Easy configuration**: Interactive wizard to create configuration files
 - **esbuild-gas-plugin integration**: Automatically handles GAS-specific optimizations
 - **File management**: Automatically copies `appsscript.json` and HTML files to the output directory
@@ -50,6 +51,20 @@ pnpm gasup
 yarn gasup
 ```
 
+### `gasup --watch`
+Watches for file changes and automatically rebuilds your project.
+
+```bash
+# Using npx
+npx gasup --watch
+
+# Using pnpm
+pnpm gasup --watch
+
+# Using yarn
+yarn gasup --watch
+```
+
 ### `gasup init`
 Interactive wizard to create a `gasup.config.ts` configuration file.
 
@@ -91,6 +106,7 @@ Add these scripts to your `package.json` for easier access:
 {
   "scripts": {
     "build": "gasup",
+    "dev": "gasup --watch",
     "init": "gasup init",
     "config": "gasup config"
   }
@@ -102,6 +118,7 @@ Then you can run:
 ```bash
 npm run init    # Initialize configuration
 npm run build   # Bundle your project
+npm run dev     # Watch mode for development
 npm run config  # Show configuration
 ```
 
@@ -148,7 +165,8 @@ your-project/
 1. **Bundling**: Uses esbuild with the esbuild-gas-plugin to bundle your code
 2. **Optimization**: Automatically applies Google Apps Script-specific optimizations
 3. **File copying**: Copies `appsscript.json` and any HTML files to the output directory
-4. **Ready for deployment**: The bundled file is ready to be pushed to Google Apps Script
+4. **Watch mode**: Monitors file changes and automatically rebuilds when needed
+5. **Ready for deployment**: The bundled file is ready to be pushed to Google Apps Script
 
 ## Examples
 
@@ -164,11 +182,21 @@ npx gasup
 clasp push
 ```
 
+### Development with watch mode
+```bash
+# Start watch mode for development
+npx gasup --watch
+
+# In another terminal, push changes
+clasp push
+```
+
 ### Using npm scripts
 ```bash
 # Add to package.json scripts
 npm run init
-npm run build
+npm run dev      # Watch mode
+npm run build    # One-time build
 clasp push
 ```
 

@@ -7,17 +7,23 @@ import { init } from '../init.js';
 program
   .name('gasup')
   .description('CLI tool for Google Apps Script bundling')
-  .version('0.4.4');
+  .version('1.0.1');
 
 // Main command (bundle execution)
 program
   .description('Bundle your Google Apps Script project')
-  .action(async () => {
+  .option('--watch', 'Watch for changes and rebuild automatically')
+  .action(async (options) => {
     try {
       const config = await loadConfigWithDefault();
-      console.log('📦 Bundling with esbuild...');
-      await bundle(config);
-      console.log('✅ Bundle completed');
+      if (options.watch) {
+        console.log('📦 Starting watch mode...');
+        await bundle(config, true);
+      } else {
+        console.log('📦 Bundling with esbuild...');
+        await bundle(config, false);
+        console.log('✅ Bundle completed');
+      }
     } catch (error) {
       console.error('❌ Bundle failed:', error);
       process.exit(1);
