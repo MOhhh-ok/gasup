@@ -1,4 +1,4 @@
-import fs from 'fs-extra';
+import fs from 'fs';
 import path from 'path';
 import tsnode from 'ts-node';
 import { Config } from './types.js';
@@ -6,15 +6,10 @@ import { Config } from './types.js';
 const configFileName = 'gasup.config.ts';
 
 export const defaultConfig: Config = {
-  claspJsonPath: '.clasp.json',
+  entryPoint: 'src/index.ts',
+  outputFile: 'dist/bundle.js',
   appsScriptJsonPath: 'appsscript.json',
-  bundleEntries: [path.join('src', 'index.ts')],
-  bundleOutfile: path.join('dist', 'bundle.js'),
-  srcDir: 'src',
-  distDir: 'dist',
 };
-
-// export const config = loadConfigWithDefault();
 
 export async function loadConfigWithDefault() {
   const configPath = path.join(process.cwd(), configFileName);
