@@ -8,9 +8,16 @@ importers:
 
   .:
     dependencies:
+      dayjs:
+        specifier: ^1.11.13
+        version: 1.11.13
       gasup:
-        specifier: file:../gasup
-        version: file:../gasup
+        specifier: file:..
+        version: file:..
+    devDependencies:
+      '@types/node':
+        specifier: ^24.0.6
+        version: 24.0.6
 
 packages:
 
@@ -302,9 +309,15 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@types/node@24.0.6':
+    resolution: {integrity: sha512-ZOyn+gOs749xU7ovp+Ibj0g1o3dFRqsfPnT22C2t5JzcRvgsEDpGawPbCISGKLudJk9Y0wiu9sYd6kUh0pc9TA==}
+
   commander@13.1.0:
     resolution: {integrity: sha512-/rFeCpNJQbhSZjGVwO9RFV3xPqbnERS8MmIQzCtD/zl6gpJuV/bMLuN92oG3F7d8oDEHHRrujSXNUr8fpjntKw==}
     engines: {node: '>=18'}
+
+  dayjs@1.11.13:
+    resolution: {integrity: sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==}
 
   esbuild-gas-plugin@0.9.0:
     resolution: {integrity: sha512-hPdYyXW2ylYDfsDjpWovz2z8j9EAiBllYf0UCIhNMH8JIA3dCzmkaAuipJwVk6WeVGQwXm98Nm/MwHVswn/GxQ==}
@@ -345,8 +358,8 @@ packages:
   gas-entry-generator@2.6.0:
     resolution: {integrity: sha512-iO1AM+6+H5TySmbRVadyDegVObchFkB+DqrUwVryKc28HxTZd4HpaRxTe3cKT2pzyMMP0UIMt0j7NsLV26OSkA==}
 
-  gasup@file:../gasup:
-    resolution: {directory: ../gasup, type: directory}
+  gasup@file:..:
+    resolution: {directory: .., type: directory}
     hasBin: true
 
   isexe@3.1.1:
@@ -356,6 +369,9 @@ packages:
   source-map@0.6.1:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
+
+  undici-types@7.8.0:
+    resolution: {integrity: sha512-9UJ2xGDvQ43tYyVMpuHlsgApydB8ZKfVYTsLDhXkFL/6gfkp+U8xTGdh8pMJv1SpZna0zxG1DwsKZsreLbXBxw==}
 
   which@4.0.0:
     resolution: {integrity: sha512-GlaYyEb07DPxYCKhKzplCWBJtvxZcZMrL+4UkrTSJHHPyZU4mYYTv3qaOe77H7EODLSSopAUFAc6W8U4yqvscg==}
@@ -512,7 +528,13 @@ snapshots:
   '@esbuild/win32-x64@0.25.5':
     optional: true
 
+  '@types/node@24.0.6':
+    dependencies:
+      undici-types: 7.8.0
+
   commander@13.1.0: {}
+
+  dayjs@1.11.13: {}
 
   esbuild-gas-plugin@0.9.0:
     dependencies:
@@ -595,7 +617,7 @@ snapshots:
       esprima-next: 6.0.3
       estraverse: 5.3.0
 
-  gasup@file:../gasup:
+  gasup@file:..:
     dependencies:
       commander: 13.1.0
       esbuild: 0.25.5
@@ -605,6 +627,8 @@ snapshots:
 
   source-map@0.6.1:
     optional: true
+
+  undici-types@7.8.0: {}
 
   which@4.0.0:
     dependencies:

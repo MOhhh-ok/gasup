@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "gasup",
+    "dev": "gasup --watch"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.13",
+    "gasup": "file:.."
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.6"
+  }
+}
