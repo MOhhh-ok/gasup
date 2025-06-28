@@ -10,6 +10,18 @@ A simple CLI tool for bundling Google Apps Script projects with esbuild and the 
 - **esbuild-gas-plugin integration**: Automatically handles GAS-specific optimizations
 - **File management**: Automatically copies `appsscript.json` and HTML files to the output directory
 
+## Making Functions Available in Google Apps Script
+
+To make your functions executable in Google Apps Script, you need to expose them globally. Functions that are not exposed globally cannot be called from the GAS interface or triggers.
+
+```typescript
+// src/index.ts
+
+(global as any).helloWorld = () => {
+    console.log('Hello world!');
+}
+```
+
 ## Installation
 
 Install gasup as a dev dependency:
