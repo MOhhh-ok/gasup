@@ -10,5 +10,11 @@
   },
   "devDependencies": {
     "@types/node": "^24.0.6"
+  },
+  "pnpm": {
+    "overrides": {
+      "tsx>esbuild": "0.25.5",
+      "esbuild-gas-plugin>esbuild": "0.25.5"
+    }
   }
 }
