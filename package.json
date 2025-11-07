@@ -9,6 +9,8 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
+    "type-check": "tsc --noEmit",
+    "release": "release-it",
     "prepublishOnly": "tsc"
   },
   "bin": {
@@ -27,11 +29,13 @@
   ],
   "dependencies": {
     "commander": "^13.1.0",
-    "esbuild": "^0.25.5",
+    "esbuild": "^0.25.12",
     "esbuild-gas-plugin": "^0.9.0"
   },
   "devDependencies": {
-    "@types/node": "^22.15.30"
+    "@types/node": "^24.10.0",
+    "release-it": "^19.0.6",
+    "typescript": "^5.9.3"
   },
   "pnpm": {
     "overrides": {
